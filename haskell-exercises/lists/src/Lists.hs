@@ -1,7 +1,7 @@
 module Lists (member, union, intersection, difference,
               insert, insertionSort,
               binaryToDecimal, toDecimal, toDec, decimal,
-              binaryAdd) where
+              firsts, binaryAdd) where
 
 import Data.Char(digitToInt)
 
@@ -43,23 +43,34 @@ insertionSort [] = []
 insertionSort xs = foldr insert [] xs
 
 binaryToDecimal :: [Int] -> Int
-binaryToDecimal xs = sum [x * (2 ^ (size - i)) | (x, i) <- zip xs [1..size]]
-  where size = length(xs)
+--binaryToDecimal xs = sum [x * (2 ^ (size - i)) | (x, i) <- zip xs [1..size]]
+--  where size = length(xs)
+binaryToDecimal xs = toDecimal 2 xs
 
 toDecimal :: Int -> [Int] -> Int
 toDecimal r xs = sum [x * (r ^ (size - i)) | (x, i) <- zip xs [1..size]]
   where size = length(xs)
 
 toDec::Int -> String -> Int
-toDec base s = error "Implement it"
+toDec base s = recToDec base ls size
+  where
+    ls = map digitToInt s
+    size = length(ls)
+
+recToDec :: Int -> [Int] -> Int -> Int
+recToDec _ [] _ = 0
+recToDec b (x:xs) l = x * (b ^ pow) + recToDec b xs pow
+  where pow = l - 1
 
 -- Same as `toDec` But use a list comprehension
 
 decimal::Int -> String -> Int
-decimal  = error "Implement it"
+decimal base s = toDecimal base ls
+  where ls = map digitToInt s
 
 firsts::[a] -> [[a]]
-firsts = error "Implement it"
+firsts xs = [take n xs | n <- [1..size]]
+  where size = length(xs)
 
 -- Given two String that represents numbers in binary implement the 'binaryAdd' function
 -- DO NOT USE a predefined '+' operation
