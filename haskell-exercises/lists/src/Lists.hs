@@ -35,16 +35,20 @@ insert:: Int -> [Int] -> [Int]
 insert e [] = e : []
 insert e (x:xs)
   | e > x = x : insert e xs
-  | otherwise = e : xs
+  | otherwise = e : (x:xs)
 
 insertionSort :: [Int] -> [Int]
-insertionSort (x:xs)
+insertionSort [] = []
+--insertionSort (x:xs) = insert x (insertionSort xs)
+insertionSort xs = foldr insert [] xs
 
 binaryToDecimal :: [Int] -> Int
-binaryToDecimal = error "Implement it"
+binaryToDecimal xs = sum [x * (2 ^ (size - i)) | (x, i) <- zip xs [1..size]]
+  where size = length(xs)
 
 toDecimal :: Int -> [Int] -> Int
-toDecimal = error "Implement it"
+toDecimal r xs = sum [x * (r ^ (size - i)) | (x, i) <- zip xs [1..size]]
+  where size = length(xs)
 
 toDec::Int -> String -> Int
 toDec base s = error "Implement it"
