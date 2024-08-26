@@ -1,17 +1,19 @@
 module Trie  (Trie(..), left, right, find, decode, toList) where
 
 import Bit
-  
-data Trie a = Complete -- Add the Type definition deriving (Eq, Show)
-            
-left::Trie a -> Trie a
-left = error "Define it"
 
-right::Trie a -> Trie a
-left = error "Define it"
-  
+data Trie a = Leaf a | Trie a :-: Trie a deriving (Eq, Show)
+
+left::(Show a) => Trie a -> Trie a
+left (Leaf a) = error $ "Left of: " ++ (show (Leaf a))
+left (l :-: _) = l
+
+right::(Show a) => Trie a -> Trie a
+right (Leaf a) = error $ "Right of: " ++ (show (Leaf a))
+right (_ :-: r) = r
+
 find::Bits -> Trie a -> a
-find = error "Define it"
+find (b:bs) (l :-: r) =
 
 decode::Bits -> Trie Char -> String
 decode = error "Define it"
