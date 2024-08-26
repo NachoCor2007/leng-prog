@@ -7,7 +7,11 @@ import Data.Tuple(swap)
 type Frequency = (Int, Char)
 
 frequencies::String -> [Frequency]
-frequencies = error "Implement it"
+frequencies s = frequenciesList
+  where
+    frequenciesMap = frequencyMap s
+    frequenciesTuples = Map.toList frequenciesMap
+    frequenciesList = foldl swap [] frequenciesTuples
 
 frequencyMap::(Ord a) => [a] -> Map a Int
 frequencyMap as = innerMapping as Map.empty
