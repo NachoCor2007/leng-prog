@@ -18,7 +18,17 @@ find [] (_ :-: _) = error "No Leaf found"
 find (b:bs) (l :-: r) = if b == T then find bs r else find bs l
 
 decode::Bits -> Trie Char -> String
-decode = error "Define it"
+decode bs t = innerDecode bs t ""
+  where
+    innerDecode :: Bits -> Trie Char -> String -> String
+    innerDecode [] (Leaf c) s = s ++ [c]
+    innerDecode (b:bs) (l :-: r) s = if b == T then innerDecode bs r s else innerDecode bs l s
+    innerDecode bs (Leaf c) s = [c] ++ innerDecode bs t s
+
 
 toList::Trie a -> [(a, Bits)]
-toList = error "Define it"
+toList t = inOrder t []
+  where
+    inOrder::Trie a -> Bits -> [(a, Bits)]
+    inOrder (Leaf a) bs = [(a, bs)]
+    inOrder (l :-: r) bs = (inOrder l (bs ++ [F])) ++ (inOrder r (bs ++ [T]))
