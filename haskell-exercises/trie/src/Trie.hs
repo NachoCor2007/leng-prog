@@ -13,7 +13,9 @@ right (Leaf a) = error $ "Right of: " ++ (show (Leaf a))
 right (_ :-: r) = r
 
 find::Bits -> Trie a -> a
-find (b:bs) (l :-: r) =
+find [] (Leaf a) = a
+find [] (_ :-: _) = error "No Leaf found"
+find (b:bs) (l :-: r) = if b == T then find bs r else find bs l
 
 decode::Bits -> Trie Char -> String
 decode = error "Define it"
