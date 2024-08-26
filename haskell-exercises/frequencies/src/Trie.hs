@@ -11,7 +11,7 @@ left::Trie a -> Trie a
 left = error "Define it"
 
 right::Trie a -> Trie a
-left = error "Define it"
+right = error "Define it"
   
 find::Bits -> Trie a -> a
 find = error "Define it"

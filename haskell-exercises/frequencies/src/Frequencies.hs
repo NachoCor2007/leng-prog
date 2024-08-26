@@ -10,10 +10,19 @@ frequencies::String -> [Frequency]
 frequencies = error "Implement it"
 
 frequencyMap::(Ord a) => [a] -> Map a Int
-frequencyMap = error "Implement it"
+frequencyMap as = innerMapping as Map.empty
+  where
+    innerMapping::(Ord a) => [a] -> Map a Int -> Map a Int
+    innerMapping [] map = map
+    innerMapping (c:cs) map = innerMapping cs updatedMap
+      where updatedMap = Map.insertWith (+) c 1 map
 
 insert::(Ord a) => a -> [a] -> [a]
-insert = error "Implement it"
+insert a [] = a : []
+insert a (x:xs)
+  | a > x = x : insert a xs
+  | otherwise = a : (x:xs)
 
 insertionSort :: (Ord a) => [a] -> [a]
-insertionSort = error "Implement it"
+insertionSort [] = []
+insertionSort xs = foldr insert [] xs
