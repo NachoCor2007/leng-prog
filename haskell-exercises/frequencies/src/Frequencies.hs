@@ -11,7 +11,8 @@ frequencies s = frequenciesList
   where
     frequenciesMap = frequencyMap s
     frequenciesTuples = Map.toList frequenciesMap
-    frequenciesList = map swap frequenciesTuples
+    frequenciesListUnsorted = map swap frequenciesTuples
+    frequenciesList = insertionSort frequenciesListUnsorted
 
 frequencyMap::(Ord a) => [a] -> Map a Int
 frequencyMap as = innerMapping as Map.empty
