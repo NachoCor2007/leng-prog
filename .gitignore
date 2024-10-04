@@ -47,3 +47,6 @@ build/
 
 # compiled
 *.o
+
+# sensitive files
+gradle.properties
