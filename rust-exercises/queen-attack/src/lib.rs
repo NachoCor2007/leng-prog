@@ -36,14 +36,32 @@ impl Queen {
     //     check horizontal
         let in_horizontal: bool = Self::check_horizontal(&self.position, &other.position);
     //     check diagonal
+        let in_diagonal: bool = Self::check_diagonal(&self.position, &other.position);
     //     check anti-diagonal
+        let in_anti_diagonal: bool = Self::check_anti_diagonal(&self.position, &other.position);
+
+        in_vertical | in_horizontal | in_diagonal | in_anti_diagonal
     }
 
-    fn check_vertical(my_position: &ChessPosition, her_position: &ChessPosition) -> bool {
-        my_position.1 == her_position.1
+    fn check_vertical(my_position: &ChessPosition, other_position: &ChessPosition) -> bool {
+        my_position.1 == other_position.1
     }
 
-    fn check_horizontal(my_position: &ChessPosition, her_position: &ChessPosition) -> bool {
-        my_position.0 == her_position.0
+    fn check_horizontal(my_position: &ChessPosition, other_position: &ChessPosition) -> bool {
+        my_position.0 == other_position.0
+    }
+
+    fn check_diagonal(my_position: &ChessPosition, other_position: &ChessPosition) -> bool {
+        let my_diag_value = my_position.0 - my_position.1;
+        let other_diag_value = other_position.0 - other_position.1;
+
+        my_diag_value == other_diag_value
+    }
+
+    fn check_anti_diagonal(my_position: &ChessPosition, other_position: &ChessPosition) -> bool {
+        let my_anti_diag_value = my_position.0 + my_position.1;
+        let other_anti_diag_value = other_position.0 + other_position.1;
+
+        my_anti_diag_value == other_anti_diag_value
     }
 }
